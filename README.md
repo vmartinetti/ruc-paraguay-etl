@@ -1,11 +1,14 @@
-# RUC Paraguay ETL
-🇵🇾 An on-prem ETL app/database of Paraguay's RUC (As the government doesn't provide a webservice for that) 🏢
+# RUC Paraguay ETL 🇵🇾
+[Necesita las instrucciones en español🇪🇸? Sin problema, haz click aquí](README.es.md)
 
-## Motivation
-As Paraguay gov doesn't provide a webservice to get the RUC (taxpayers) data, I decided to create a solution for that. 💡
+An on-prem ETL app/database of Paraguay's RUC (As the government doesn't provide a webservice for that) 🏢
+
+## Motivation 💡
+As Paraguay gov doesn't provide a webservice to get the RUC (taxpayers) data, I decided to create a solution for that. 🤓
 
 ## How it works
 The app runs a scheduled task every day. You can schedule it to what fits you best. 🔄
+
 The ETL gets the information from the government website, extracts the data from zip files, parses it, and saves it into a SQLite database. 💾
 
 ## How to run it
