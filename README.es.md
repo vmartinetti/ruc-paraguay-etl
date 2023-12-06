@@ -1,10 +1,10 @@
 # RUC Paraguay ETL 🇵🇾
 [Need to read it in english🏴󠁧󠁢󠁥󠁮󠁧󠁿? No problem, click here](README.es.md)
 
-Una aplicación/base de datos ETL local de la RUC de Paraguay (Ya que el gobierno no proporciona un servicio web para eso) 🏢
+Una aplicación ETL con base de datos local de RUCs de Paraguay 🏢
 
 ## Motivación 💡
-Como el gobierno de Paraguay no ofrece un webservice para obtener datos de la RUC (contribuyentes), decidí crear una solución para eso. 🤓
+Como el gobierno de Paraguay no ofrece un webservice para obtener datos de contribuyentes, decidí crear una solución para eso. 🤓
 
 ## Cómo funciona
 La aplicación ejecuta una tarea programada todos los días. Puedes programarla según lo que mejor te convenga. 🔄
@@ -23,19 +23,19 @@ El ETL obtiene la información del sitio web del gobierno, extrae los datos de a
 5. Ejecuta `npm run build`
 6. Ejecuta `npm start`
 
-Si has seguido los pasos correctamente, deberías ver el proceso iniciándose en tu horario programado, y la salida debería verse así:
+Si has seguido los pasos correctamente, deberías ver el proceso iniciándose en el horario programado, y la salida debería verse así:
 <br>
-`Descargando zip y analizando datos para el dígito final:  0`<br>
-`Se encontraron 173995 contribuyentes`<br>
-`Almacenando datos...`<br><br>
+`Downloading zip, and parsing data for ending digit:  0`<br>
+`173995 contribuyentes found`<br>
+`Storing data...`<br><br>
 Y, después de un tiempo, deberías ver:<br>
-`Hecho con el dígito final:  0`
+`Done with ending digit:  0`
 
 
 El proceso se repetirá para todos los dígitos finales (0-9).
 
 ## Precauciones
-La principal precaución es que el gobierno puede cambiar cualquier cosa en cualquier momento (por ejemplo, la URL, el formato de los archivos zip, etc.), por lo que el ETL dejaría de funcionar. Obviamente, eso también me afectaría a mí, así que trataré de mantener este repositorio actualizado tanto como pueda.
+Hay que saber que el gobierno puede cambiar cualquier cosa en cualquier momento (por ejemplo, la URL, el formato de los archivos zip, etc.), por lo que el ETL podería dejar de funcionar. Obviamente, eso también me afectaría a mí, así que trataré de mantener este repositorio actualizado tanto como pueda.
 
 ## Recursos
 TSConfig de Total Typescript<br>
