@@ -1,10 +1,10 @@
 # RUC Paraguay ETL
-An ETL app to own your private database of Paraguay's RUC (As the goverment doesn't provide a webservice for that)
+An on-prem ETL app/database of Paraguay's RUC (As the goverment doesn't provide a webservice for that)
 ## Motivation
-The goverment of Paraguay doesn't have a webservice to get the RUC information, so I decided to create my own database with the information of the RUCs.
+As Paraguay gov doesn't provide a webservice to get the RUC (taxpayers) data, i decided to create a solution for that.
 ## How it works
-The apps runs a scheduled task every day at a given time (you can schedule it to what fits you best).
-The ETL gets the information from the goverment website, extract the data from the zip files, parses it and saves it into a SQLite database.
+The apps runs a scheduled task every day. You can schedule it to what fits you best.
+The ETL gets the information from the goverment website, extract the data from zip files, parses it and saves it into a SQLite database.
 
 ## How to run it
 ### Prerequisites
@@ -29,7 +29,7 @@ And, after a little while, you should see:<br>
 The process will repeat for all the ending digits (0-9).
 
 ## Caveats
-The main caveat is that the goverment can change anything at any moment (e.g. the url, the format of the zip files, etc) and the ETL would stop working. Obviously, that will affect me as well, so I'll try to keep this repo updated as much as I can.
+The main caveat is that the goverment can change anything at any moment (e.g. the url, the format of the zip files, etc) so the ETL would stop working. Obviously, that will affect me as well, so I'll try to keep this repo updated as much as I can.
 
 ## Resources
 TSConfig from Total Typescript<br>
@@ -41,3 +41,12 @@ https://kentcdodds.com/blog/i-migrated-from-a-postgres-cluster-to-distributed-sq
 
 That lead me to this:<br>
 https://fly.io/blog/all-in-on-sqlite-litestream/
+
+## TODO list
+- [ ] Add a simple api
+- [ ] Add tests
+- [ ] Add a logger configured to send email notifications on errors
+
+## License
+MIT
+

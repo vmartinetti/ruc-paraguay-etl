@@ -15,11 +15,9 @@ const extractDaily = new CronJob(
 	TIMEZONE
 );
 
-// extractDaily.start();
-main();
+extractDaily.start();
 
 async function main() {
-  // const endingDigit = 0;
   for (let endingDigit = 0; endingDigit < 10; endingDigit++) {
     const data = await downloadAndParseZip(endingDigit)
     console.log(`${data.length} contribuyentes found`);
