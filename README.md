@@ -20,9 +20,9 @@ The ETL gets the information from the goverment website, extract the data from z
 
 If you followed the steps correctly, you should see the process starting at your scheduled time, and the output should looks like this:
 <br>
-`Downloading zip, and parsing data for ending digit:  0
-173995 contribuyentes found
-Storing data...`<br><br>
+`Downloading zip, and parsing data for ending digit:  0<br>
+`173995 contribuyentes found<br>
+`Storing data...`<br><br>
 And, after a little while, you should see:<br>
 `Done with ending digit:  0`
 
