@@ -20,11 +20,12 @@ The ETL gets the information from the government website, extracts the data from
 2. CD into the repo
 3. Copy the `.env.example` file to `.env` and make the adjustments you need
 4. Run `npm install`
-5. Ejecuta `npm run migrate --name init`
+5. Run `npm run migrate --name init`
 6. Run `npm run build`
 7. Run `npm start`
+...or, if you want to trigger the ETL proccess immediately, run `npm run start -- startmeup`
 
-If you followed the steps correctly, you should see the process starting at your scheduled time, and the output should look some like this:
+If you followed the steps correctly, you should see the process starting at your scheduled time (or immediately with the startmeup flag), and the output should look some like this:
 <br>
 `Downloading zip, and parsing data for ending digit:  0`<br>
 `173995 contribuyentes found`<br>
@@ -34,6 +35,60 @@ And, after a little while, you should see:<br>
 
 
 The process will repeat for all the ending digits (0-9).
+
+### REST API
+Once your database is populated, you can use the REST API to get the data.
+
+The app exposes a simple REST API with the following endpoints:
+
+`GET /ruc/:ruc` - Returns the taxpayer data for the given RUC
+
+e.g. `/ruc/80000001` 
+
+returns
+```
+{
+"ruc": "80000001",
+"razonSocial": "NAVIERA CONOSUR SOCIEDAD ANONIMA",
+"digitoVerificador": "3",
+"rucAnterior": "NCOA905190H",
+"estado": "BLOQUEADO",
+"fechaHoraImportacion": "2023-12-07T11:31:51.496Z"
+}
+```
+
+`GET /razon-social/:term` - Returns an array of taxpayers data that contains the giver term in their name (Razon Social)
+
+e.g. `/razon-social/MARTINETTI LOPEZ`
+returns
+```
+[
+{
+"ruc": "2509803",
+"razonSocial": "MARTINETTI LOPEZ, VICTOR ALEJANDRO",
+"digitoVerificador": "9",
+"rucAnterior": "MALV813370R",
+"estado": "ACTIVO",
+"fechaHoraImportacion": "2023-12-07T11:38:31.248Z"
+},
+{
+"ruc": "2509804",
+"razonSocial": "MARTINETTI LOPEZ, JUAN RAFAEL",
+"digitoVerificador": "7",
+"rucAnterior": "CAVI712851Z",
+"estado": "ACTIVO",
+"fechaHoraImportacion": "2023-12-07T11:42:02.729Z"
+},
+{
+"ruc": "3187875",
+"razonSocial": "MARTINETTI LOPEZ, FABIOLA GRACIELA",
+"digitoVerificador": "0",
+"rucAnterior": "MALF901730L",
+"estado": "ACTIVO",
+"fechaHoraImportacion": "2023-12-07T11:45:13.706Z"
+}
+]
+```
 
 ## Caveats
 The main caveat is that the goverment can change anything at any moment (e.g. the url, the format of the zip files, etc) so the ETL would stop working. Obviously, that will affect me as well, so I'll try to keep this repo updated as much as I can.
@@ -50,7 +105,7 @@ That lead me to this:<br>
 https://fly.io/blog/all-in-on-sqlite-litestream/
 
 ## TODO list
-- [ ] Add a simple api
+- [X] Add a simple api
 - [ ] Add tests
 - [ ] Add a logger configured to send email notifications on errors
 - [ ] Add a crawler to try to detect changes in the government website
