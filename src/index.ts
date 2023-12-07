@@ -2,16 +2,10 @@ import { CronJob } from 'cron'
 import { URL_ROOT, CRON_SCHEDULE, TIMEZONE, PORT, prisma } from './config'
 import axios from 'axios'
 import AdmZip from 'adm-zip'
-
 import express, { Express } from 'express'
 import { Contribuyente } from './types'
 
-let startmeup = false
-process.argv.forEach((val) => {
-  if (val === '--startmeup') {
-    startmeup = true
-  }
-})
+const startmeup = process.argv[2] === 'startmeup'
 
 const etlSchedule = new CronJob(
   CRON_SCHEDULE,
@@ -20,8 +14,7 @@ const etlSchedule = new CronJob(
 	false,
 	TIMEZONE
 )
-const app: Express = express();
-
+const app: Express = express()
 
 main()
 
@@ -88,7 +81,7 @@ async function main(): Promise<void> {
   if (startmeup){
     await startETL()
   }else{
-    console.log('ETL process will start on schedule')
+    console.log('ETL process will start on scheduled time')
   }
 }
 
