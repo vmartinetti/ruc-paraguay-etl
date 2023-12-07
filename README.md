@@ -20,7 +20,7 @@ El ETL obtiene la información del sitio web del gobierno, extrae los datos de a
 
 ### Pasos
 1. Clona el repositorio
-2. Accede al repositorio
+2. CD al repositorio
 3. Copia el archivo `.env.example` a `.env` y realiza los ajustes necesarios
 4. Ejecuta `npm install`
 5. Ejecuta `npm run build`
