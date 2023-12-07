@@ -1,58 +1,57 @@
 # RUC Paraguay ETL 🇵🇾
-[Necesita las instrucciones en español🇪🇸? Sin problema, haz click aquí](README.es.md)
+[Need english instructions🏴󠁧󠁢󠁥󠁮󠁧󠁿? No worries, click here](README.es.md)
 
-An on-prem ETL app/database of Paraguay's RUC (As the government doesn't provide a webservice for that) 🏢
+Una aplicación ETL con base de datos local de RUCs de Paraguay 🏢
 
-## Motivation 💡
-As Paraguay gov doesn't provide a webservice to get the RUC (taxpayers) data, I decided to create a solution for that. 🤓
+## Motivación 💡
+Como el gobierno de Paraguay no ofrece un webservice para obtener datos de contribuyentes, decidí crear una solución para eso. 🤓
 
-## How it works
-The app runs a scheduled task every day. You can schedule it to what fits you best. 🔄
+## Cómo funciona
+La aplicación ejecuta una tarea programada todos los días. Puedes programarla según lo que mejor te convenga. 🔄
 
-The ETL gets the information from the government website, extracts the data from zip files, parses it, and saves it into a SQLite database. 💾
+El ETL obtiene la información del sitio web del gobierno, extrae los datos de archivos zip, los analiza y los guarda en una base de datos SQLite. 💾
 
-## How to run it
-### Prerequisites
+## Cómo ejecutarlo
+### Requisitos previos
 - NodeJS 18 🚀
 
-### Steps
-1. Clone the repo
-2. CD into the repo
-3. Copy the `.env.example` file to `.env` and make the adjustments you need
-4. Run `npm install`
-5. Run `npm run build`
-6. Run `npm start`
+### Pasos
+1. Clona el repositorio
+2. Accede al repositorio
+3. Copia el archivo `.env.example` a `.env` y realiza los ajustes necesarios
+4. Ejecuta `npm install`
+5. Ejecuta `npm run build`
+6. Ejecuta `npm start`
 
-If you followed the steps correctly, you should see the process starting at your scheduled time, and the output should look like this:
+Si has seguido los pasos correctamente, deberías ver el proceso iniciándose en el horario programado, y la salida debería verse así:
 <br>
 `Downloading zip, and parsing data for ending digit:  0`<br>
 `173995 contribuyentes found`<br>
 `Storing data...`<br><br>
-And, after a little while, you should see:<br>
+Y, después de un tiempo, deberías ver:<br>
 `Done with ending digit:  0`
 
 
-The process will repeat for all the ending digits (0-9).
+El proceso se repetirá para todos los dígitos finales (0-9).
 
-## Caveats
-The main caveat is that the goverment can change anything at any moment (e.g. the url, the format of the zip files, etc) so the ETL would stop working. Obviously, that will affect me as well, so I'll try to keep this repo updated as much as I can.
+## Precauciones
+Hay que saber que el gobierno puede cambiar cualquier cosa en cualquier momento (por ejemplo, la URL, el formato de los archivos zip, etc.), por lo que el ETL podería dejar de funcionar. Obviamente, eso también me afectaría a mí, así que trataré de mantener este repositorio actualizado tanto como pueda.
 
-## Resources
-TSConfig from Total Typescript<br>
-https://www.totaltypescript.com/tsconfig-cheat-sheet
+## Recursos
+TSConfig de Total Typescript<br>
+[https://www.totaltypescript.com/tsconfig-cheat-sheet](https://www.totaltypescript.com/tsconfig-cheat-sheet)
 
-Why use SQLite?<br>
-First motivation:
-https://kentcdodds.com/blog/i-migrated-from-a-postgres-cluster-to-distributed-sqlite-with-litefs
+¿Por qué usar SQLite?<br>
+Primera motivación:
+[https://kentcdodds.com/blog/i-migrated-from-a-postgres-cluster-to-distributed-sqlite-with-litefs](https://kentcdodds.com/blog/i-migrated-from-a-postgres-cluster-to-distributed-sqlite-with-litefs)
 
-That lead me to this:<br>
-https://fly.io/blog/all-in-on-sqlite-litestream/
+Eso me llevó a esto:<br>
+[https://fly.io/blog/all-in-on-sqlite-litestream/](https://fly.io/blog/all-in-on-sqlite-litestream/)
 
-## TODO list
-- [ ] Add a simple api
-- [ ] Add tests
-- [ ] Add a logger configured to send email notifications on errors
+## Lista de tareas pendientes
+- [ ] Agregar una API simple
+- [ ] Agregar pruebas
+- [ ] Agregar un registro configurado para enviar notificaciones por correo electrónico en caso de errores
 
-## License
+## Licencia
 MIT
-
