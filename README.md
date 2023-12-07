@@ -56,6 +56,7 @@ Eso me llevó a esto:<br>
 - [ ] Agregar una API simple
 - [ ] Agregar pruebas
 - [ ] Agregar un logger configurado para enviar notificaciones por correo electrónico en caso de errores
+- [ ] Agregar un crawler para intentar detectar cambios en el sitio web del gobierno
 
 ## Licencia
 MIT

@@ -53,6 +53,7 @@ https://fly.io/blog/all-in-on-sqlite-litestream/
 - [ ] Add a simple api
 - [ ] Add tests
 - [ ] Add a logger configured to send email notifications on errors
+- [ ] Add a crawler to try to detect changes in the government website
 
 ## License
 MIT
