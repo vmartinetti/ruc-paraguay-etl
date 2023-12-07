@@ -10,23 +10,24 @@ Un ETL Node.js con base de datos local de RUCs de Paraguay 🏢
 Así que decidí crear la versión en Javascript. 🤓
 
 ## Cómo funciona
-La aplicación ejecuta una tarea programada todos los días. Puedes programarla según lo que mejor te convenga. 🔄
+La aplicación ejecuta una tarea al iniciarse y la repite todos los días a una hora programada. Puedes programarla según lo que mejor te convenga. 🔄
 
 El ETL obtiene la información del sitio web del gobierno, extrae los datos de archivos zip, los parsea y los guarda en una base de datos SQLite. 💾
 
 ## Cómo ejecutarlo
 ### Requisitos previos
-- NodeJS 18 🚀
+- Node 🚀 (Testeado con node 18)
 
 ### Pasos
 1. Clona el repositorio
 2. CD al repositorio
 3. Copia el archivo `.env.example` a `.env` y realiza los ajustes necesarios
 4. Ejecuta `npm install`
-5. Ejecuta `npm run build`
-6. Ejecuta `npm start`
+5. Ejecuta `npm run migrate --name init`
+6. Ejecuta `npm run build`
+7. Ejecuta `npm start`
 
-Si has seguido los pasos correctamente, deberías ver el proceso iniciándose en el horario programado, y la salida debería verse así:
+Si has seguido los pasos correctamente, deberías ver el proceso iniciándose en el horario programado, y la salida debería verse algo así:
 <br>
 `Downloading zip, and parsing data for ending digit:  0`<br>
 `173995 contribuyentes found`<br>

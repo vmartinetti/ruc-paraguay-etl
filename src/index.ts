@@ -16,6 +16,7 @@ const etlSchedule = new CronJob(
 );
 
 etlSchedule.start();
+main();
 
 /**
  * Downloads and parses a zip file based on the ending digit.

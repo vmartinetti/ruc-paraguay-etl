@@ -1,29 +1,30 @@
 # RUC Paraguay ETL 🇵🇾
 [Necesitas las instrucciones en español🇪🇸? Sin problema, haz click aquí](README.es.md)
 
-An on-prem ETL app/database of Paraguay's RUC (As the government doesn't provide a webservice for that) 🏢
+A Node.js ETL with the database of Paraguay's RUC (taxpayers id's)🏢
 
 ## Motivation 💡
-As Paraguay gov doesn't provide a webservice to get the RUC (taxpayers) data, I decided to create a solution for that. 🤓
+As Paraguay gov doesn't provide a webservice to get taxpayers data, I decided to create a solution for that. 🤓
 
 ## How it works
-The app runs a scheduled task every day. You can schedule it to what fits you best. 🔄
+The app runs a task on start and at a scheduled time every day. You can schedule it to what fits you best. 🔄
 
 The ETL gets the information from the government website, extracts the data from zip files, parses it, and saves it into a SQLite database. 💾
 
 ## How to run it
 ### Prerequisites
-- NodeJS 18 🚀
+- Node 🚀 (Tested with node 18)
 
 ### Steps
 1. Clone the repo
 2. CD into the repo
 3. Copy the `.env.example` file to `.env` and make the adjustments you need
 4. Run `npm install`
-5. Run `npm run build`
-6. Run `npm start`
+5. Ejecuta `npm run migrate --name init`
+6. Run `npm run build`
+7. Run `npm start`
 
-If you followed the steps correctly, you should see the process starting at your scheduled time, and the output should look like this:
+If you followed the steps correctly, you should see the process starting at your scheduled time, and the output should look some like this:
 <br>
 `Downloading zip, and parsing data for ending digit:  0`<br>
 `173995 contribuyentes found`<br>
