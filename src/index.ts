@@ -6,7 +6,12 @@ import AdmZip from 'adm-zip'
 import express, { Express } from 'express'
 import { Contribuyente } from './types'
 
-const startmeup = process.argv[2] === '--startmeup'
+let startmeup = false
+process.argv.forEach((val) => {
+  if (val === '--startmeup') {
+    startmeup = true
+  }
+})
 
 const etlSchedule = new CronJob(
   CRON_SCHEDULE,
@@ -75,6 +80,7 @@ async function storeData(contribuyentes: Contribuyente[]) {
 
 /**
  * Starts the web server, and the ETL process.
+ * If the `--startmeup` flag is passed, the ETL process will start immediately.
  */
 async function main(): Promise<void> {
   startWebserver()
