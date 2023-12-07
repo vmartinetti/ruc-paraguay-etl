@@ -7,27 +7,21 @@ import { Contribuyente } from './types';
 
 const prisma = new PrismaClient();
 
-const extractDaily = new CronJob(
-	CRON_SCHEDULE,
+const etlSchedule = new CronJob(
+  CRON_SCHEDULE,
 	main,
 	null,
 	false,
 	TIMEZONE
 );
 
-extractDaily.start();
+etlSchedule.start();
 
-async function main() {
-  for (let endingDigit = 0; endingDigit < 10; endingDigit++) {
-    const data = await downloadAndParseZip(endingDigit)
-    console.log(`${data.length} contribuyentes found`);
-    if (data.length){
-      await storeData(data);
-    }
-    console.log('Done with ending digit: ', endingDigit);
-  }
-}
-
+/**
+ * Downloads and parses a zip file based on the ending digit.
+ * @param endingDigit - The ending digit used to determine the zip file to download.
+ * @returns An array of `Contribuyente` objects parsed from the downloaded zip file.
+ */
 async function downloadAndParseZip(endingDigit: number): Promise<Contribuyente[]> {
   console.log('Downloading zip, and parsing data for ending digit: ', endingDigit)
   const fechaHoraImportacion = new Date().toISOString();
@@ -55,6 +49,11 @@ async function downloadAndParseZip(endingDigit: number): Promise<Contribuyente[]
   return data;
 }
 
+
+/**
+ * Stores the given array of `Contribuyente` objects in the database.
+ * @param data - The array of `Contribuyente` objects to store.
+ */
 async function storeData(contribuyentes: Contribuyente[]) {
   console.log('Storing data...');
   for (const item of contribuyentes) {
@@ -70,3 +69,20 @@ async function storeData(contribuyentes: Contribuyente[]) {
     }
   }
 }
+
+/**
+ * Iterates over a range of ending digits, downloads and parses a zip file for each digit,
+ * and stores the parsed data in a database.
+ */
+async function main(): Promise<void> {
+  for (let endingDigit = 0; endingDigit < 10; endingDigit++) {
+    const data = await downloadAndParseZip(endingDigit)
+    console.log(`${data.length} contribuyentes found`);
+    if (data.length){
+      await storeData(data);
+    }
+    console.log('Done with ending digit: ', endingDigit);
+  }
+}
+
+
