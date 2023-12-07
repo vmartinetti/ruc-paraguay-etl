@@ -12,7 +12,7 @@ Así que decidí crear la versión en Javascript. 🤓
 ## Cómo funciona
 La aplicación ejecuta una tarea programada todos los días. Puedes programarla según lo que mejor te convenga. 🔄
 
-El ETL obtiene la información del sitio web del gobierno, extrae los datos de archivos zip, los analiza y los guarda en una base de datos SQLite. 💾
+El ETL obtiene la información del sitio web del gobierno, extrae los datos de archivos zip, los parsea y los guarda en una base de datos SQLite. 💾
 
 ## Cómo ejecutarlo
 ### Requisitos previos
