@@ -1,10 +1,13 @@
 # RUC Paraguay ETL 🇵🇾
-[Need english instructions🏴󠁧󠁢󠁥󠁮󠁧󠁿? No worries, click here](README.es.md)
+[Need english instructions 🇬🇧 🇺🇸? No worries, click here](README.es.md)
 
-Una aplicación ETL con base de datos local de RUCs de Paraguay 🏢
+Un ETL Node.js con base de datos local de RUCs de Paraguay 🏢
 
 ## Motivación 💡
-Como el gobierno de Paraguay no ofrece un webservice para obtener datos de contribuyentes, decidí crear una solución para eso. 🤓
+- El gobierno de Paraguay no ofrece un webservice para obtener datos de contribuyentes.
+- Encontré repos en GitHub con soluciones para esto, pero ninguno en Javascript.
+
+Así que decidí crear la versión en Javascript. 🤓
 
 ## Cómo funciona
 La aplicación ejecuta una tarea programada todos los días. Puedes programarla según lo que mejor te convenga. 🔄
