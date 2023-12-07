@@ -1,5 +1,5 @@
 # RUC Paraguay ETL 🇵🇾
-[Need english instructions 🇬🇧 🇺🇸? No worries, click here](README.es.md)
+[Need english instructions 🇬🇧 🇺🇸? No worries, click here](README.en.md)
 
 Un ETL Node.js con base de datos local de RUCs de Paraguay 🏢
 
