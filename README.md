@@ -55,7 +55,7 @@ Eso me llevó a esto:<br>
 ## Lista de tareas pendientes
 - [ ] Agregar una API simple
 - [ ] Agregar pruebas
-- [ ] Agregar un registro configurado para enviar notificaciones por correo electrónico en caso de errores
+- [ ] Agregar un logger configurado para enviar notificaciones por correo electrónico en caso de errores
 
 ## Licencia
 MIT
