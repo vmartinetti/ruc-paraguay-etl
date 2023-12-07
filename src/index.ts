@@ -1,22 +1,24 @@
-import { CronJob } from 'cron';
-import { URL_ROOT, CRON_SCHEDULE, TIMEZONE } from './config';
-import axios from 'axios';
-import AdmZip from 'adm-zip';
-import { PrismaClient } from '@prisma/client';
-import { Contribuyente } from './types';
+import { CronJob } from 'cron'
+import { URL_ROOT, CRON_SCHEDULE, TIMEZONE, PORT, prisma } from './config'
+import axios from 'axios'
+import AdmZip from 'adm-zip'
 
-const prisma = new PrismaClient();
+import express, { Express } from 'express'
+import { Contribuyente } from './types'
+
+const startmeup = process.argv[2] === '--startmeup'
 
 const etlSchedule = new CronJob(
   CRON_SCHEDULE,
-	main,
+	startETL,
 	null,
 	false,
 	TIMEZONE
-);
+)
+const app: Express = express();
 
-etlSchedule.start();
-main();
+
+main()
 
 /**
  * Downloads and parses a zip file based on the ending digit.
@@ -25,29 +27,29 @@ main();
  */
 async function downloadAndParseZip(endingDigit: number): Promise<Contribuyente[]> {
   console.log('Downloading zip, and parsing data for ending digit: ', endingDigit)
-  const fechaHoraImportacion = new Date().toISOString();
-  const url = `${URL_ROOT}${endingDigit}.zip`;
-  const response = await axios.get(url, { responseType: 'arraybuffer' });
-  const zip = new AdmZip(Buffer.from(response.data, 'binary'));
-  const zipEntries = zip.getEntries();
-  const txtFile = zipEntries[0];
+  const fechaHoraImportacion = new Date().toISOString()
+  const url = `${URL_ROOT}${endingDigit}.zip`
+  const response = await axios.get(url, { responseType: 'arraybuffer' })
+  const zip = new AdmZip(Buffer.from(response.data, 'binary'))
+  const zipEntries = zip.getEntries()
+  const txtFile = zipEntries[0]
   if (!txtFile) {
-    console.log('No txt file found in zip');
+    console.log('No txt file found in zip')
     return [];
   }
   const content = txtFile.getData().toString('utf8');
 
-  const lines = content.split('\n');
+  const lines = content.split('\n')
   const dataParsed = lines.map(line => {
-    const [ruc, razonSocial, digitoVerificador, rucAnterior, estado] = line.split('|');
+    const [ruc, razonSocial, digitoVerificador, rucAnterior, estado] = line.split('|')
     if (!ruc || !razonSocial || !digitoVerificador ) {
-      return undefined;
+      return undefined
     } else {
-      return { ruc, razonSocial, digitoVerificador, rucAnterior, estado, fechaHoraImportacion };
+      return { ruc, razonSocial, digitoVerificador, rucAnterior, estado, fechaHoraImportacion }
     }
   })
-  const data: Contribuyente[] = dataParsed.filter((item): item is Contribuyente => item !== undefined);
-  return data;
+  const data: Contribuyente[] = dataParsed.filter((item): item is Contribuyente => item !== undefined)
+  return data
 }
 
 
@@ -56,18 +58,31 @@ async function downloadAndParseZip(endingDigit: number): Promise<Contribuyente[]
  * @param data - The array of `Contribuyente` objects to store.
  */
 async function storeData(contribuyentes: Contribuyente[]) {
-  console.log('Storing data...');
+  console.log('Storing data...')
   for (const item of contribuyentes) {
     try {
       await prisma.contribuyente.upsert({
         where: { ruc: item.ruc },
         update: item,
         create: item,
-      });
+      })
     } catch (error) {
-      console.log('Error storing item: ', item, error);
-      break;
+      console.log('Error storing item: ', item, error)
+      break
     }
+  }
+}
+
+/**
+ * Starts the web server, and the ETL process.
+ */
+async function main(): Promise<void> {
+  startWebserver()
+  etlSchedule.start()
+  if (startmeup){
+    await startETL()
+  }else{
+    console.log('ETL process will start on schedule')
   }
 }
 
@@ -75,15 +90,19 @@ async function storeData(contribuyentes: Contribuyente[]) {
  * Iterates over a range of ending digits, downloads and parses a zip file for each digit,
  * and stores the parsed data in a database.
  */
-async function main(): Promise<void> {
+async function startETL(): Promise<void> {
   for (let endingDigit = 0; endingDigit < 10; endingDigit++) {
     const data = await downloadAndParseZip(endingDigit)
-    console.log(`${data.length} contribuyentes found`);
+    console.log(`${data.length} taxpayers (contribuyentes) found`)
     if (data.length){
-      await storeData(data);
+      await storeData(data)
     }
-    console.log('Done with ending digit: ', endingDigit);
+    console.log(`Done with ending digit: ${endingDigit}`)
   }
 }
 
-
+function startWebserver(): void {
+  app.listen(PORT, () => {
+    console.log(`⚡️ RUC API is listening at http://localhost:${PORT}`)
+  });
+}
