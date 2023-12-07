@@ -4,6 +4,7 @@ import axios from 'axios'
 import AdmZip from 'adm-zip'
 import express, { Express } from 'express'
 import { Contribuyente } from './types'
+import router from './routes'
 
 const startmeup = process.argv[2] === 'startmeup'
 
@@ -15,6 +16,7 @@ const etlSchedule = new CronJob(
 	TIMEZONE
 )
 const app: Express = express()
+app.use(router);
 
 main()
 
